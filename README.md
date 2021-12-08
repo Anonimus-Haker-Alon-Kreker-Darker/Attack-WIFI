@@ -241,3 +241,72 @@ Step 4 − Type “1” to crack the first wireless.
 
 Crack First
 Step 5 − After attacking is complete, the key will be found.
+
+#WIFI AIRMON
+
+Šalje deauth (deauthentication) pakete na wifi mrežu što rezultira prekidom mreže za povezane uređaje. Koristi scapy modul za slanje deauth paketa. Saznajte više o napadu deautentifikacije
+
+Zavisnosti
+aircrack-ng. (Preporučujem da instalirate najnoviju verziju, iz izvora kako biste podržali više mrežnih drajvera/kartica.)
+sudo apt-get install aircrack-ng -y
+scapy
+sudo apt-get install python-scapy -y
+Kako trčati?
+Možemo trčati na 2 načina:
+
+sudo python deauth.py
+
+Automatski će kreirati mon0 sa airmon-ng start wlan0 (neće kreirati, ako već postoji) i njuškati wifi signal na tom interfejsu. Nakon nekoliko sekundi, prikazat će se SSID i njegov MAC za odabir.
+
+sudo python deauth.py -m XX:YY:AA:XX:YY:AA
+
+MAC adresa kao argument komandne linije. U ovom slučaju, nema potrebe da njuškate wifi.
+
+Šta je novo u verziji 3.1
+Demonizira napad, tj. izvodi napad u pozadini
+Kompatibilan sa novom airmon-ng verzijom
+Može otkriti različita imena bežičnog interfejsa (kao wlp13s0)
+Opcija ubiti demona
+Sada možete dobiti wifi mreže pomoću iwlist alata (Relativno brže)
+Upotreba
+root@ghost:/opt/scripts#./deauth.py -h
+upotreba: deauth.py [-h] [-d] [-c BROJ] [-m MAC] [-w] [-k] [-v]
+
+Šalje pakete za poništavanje autentikacije na wifi mrežu što rezultira prekidom mreže
+za povezane uređaje. [Kodirao VEERENDRA KAKUMANU]
+
+neobavezni argumenti:
+  -h, --help prikaži ovu poruku pomoći i izađi
+  -d Pokreni kao demon
+  -c COUNT Zaustavlja praćenje nakon što ovaj broj dostigne. Podrazumevano jeste
+              2000
+  -m MAC Šalje deauth pakete ovoj mreži
+  -w Koristi "iwlist" da dobije listu wifi hotspotova
+  -k Ubija "Deauth Daemon" ako je pokrenut
+  -v pokazati broj verzije programa i izaći
+U akciji
+
+FAQ
+Koja je opcija -c "COUNT"?
+To je granična vrijednost za zaustavljanje "nadgledanja". Pristupna tačka ili wifi hotspot periodično prenosi okvire beacona kako bi najavila svoje prisustvo. Okvir beacona sadrži sve informacije o mreži. Sada, skripta traži ove beacone i računa. Ako broj dostigne granicu, to će zaustaviti praćenje.
+
+Ako mislite, monoring oduzima mnogo vremena? zatim odredite broj sa manjim brojem (podrazumevano je 2000), ali možda neće dobiti sve wifi pristupne tačke blizu vas. Zato što slušate samo nekoliko signalnih signala
+Koja je opcija -w "Koristi "iwlist" za dobijanje liste wifi hotspota"?
+Skripta pokreće iwlist wlan0 s i približava wifi mreže vama
+
+Koja je opcija -d "Pokreni kao demon"?
+Skripta radi u pozadini dok napada. (Koristite opciju -k da ubijete)
+
+Poznati problemi
+Iz nekih razloga, ponekad skripta ne može pronaći sve bliske WiFi pristupne tačke. (Koristite opciju -w)
+Ako pokušate da napadnete wifi hotspot koji je kreirao "Android" uređaj, to neće raditi!.(Možda koristi 802.11w)
+Nemojte izvoditi skriptu sa -w neprekidno dva puta ili više, možete dobiti donju grešku. Ako je to slučaj, ponovo pokrenite network-manager; sudo service network-manager restart
+wlp13s0 Interfejs ne podržava skeniranje: uređaj ili resurs zauzet
+Uzmi ga!
+wget -qO deauth.py https://goo.gl/bnsV9C
+
+Kako izbjeći napad deautentifikacije?
+Koristite rutere podržane 802.11w. Saznajte više o 802.11w i pročitajte cisco dokument
+
+BILJEŠKA:
+Da bi napad deautentifikacije bio uspješan, trebali biste se približiti ciljnoj mreži. Deauth paketi bi trebali doći do povezanih uređaja ciljne mreže(a)
