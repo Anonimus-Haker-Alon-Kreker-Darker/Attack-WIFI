@@ -1,4 +1,126 @@
 # ATTACK WIFI
+
+U ovom poglavlju naučit ćemo kako koristiti alate za razbijanje Wi-Fi mreže koje je ugradio Kali Linux. Međutim, važno je da bežična kartica koju imate podržava način praćenja.
+
+Fern Wifi Cracker
+Fern Wifi kreker je jedan od alata koje Kali ima za razbijanje bežične mreže.
+
+Prije otvaranja Fern-a, trebamo prebaciti bežičnu karticu u nadzorni mod. Da biste to učinili, upišite “airmon-ng start wlan-0” u terminal.
+
+Airmon Ng
+Sada otvorite Fern Wireless Cracker.
+
+Korak 1 − Aplikacije → Kliknite na “Wireless Attacks” → “Fern Wireless Cracker”.
+
+Fern Wireless Cracker
+Korak 2 − Odaberite bežičnu karticu kao što je prikazano na sljedećem snimku ekrana.
+
+Wireless Card
+Korak 3 − Kliknite na „Skeniraj pristupne tačke“.
+
+Pristupna tačka
+Korak 4 − Nakon završetka skeniranja, prikazat će se sve pronađene bežične mreže. U ovom slučaju pronađene su samo “WPA mreže”.
+
+WPA mreža
+Korak 5 − Kliknite na WPA mreže kao što je prikazano na gornjoj slici ekrana. Prikazuje sve pronađene bežične veze. Općenito, u WPA mrežama, kao takav izvodi napade rječnika.
+
+Korak 6 − Kliknite na "Pretraži" i pronađite listu riječi koju ćete koristiti za napad.
+
+Lista riječi
+Korak 7 − Kliknite na „Wifi napad“.
+
+Wifi Attack
+Korak 8 – Nakon završetka napada na rječnik, pronašao je lozinku i prikazat će se kao što je prikazano na sljedećoj slici ekrana.
+
+Dictionary Attack
+Kismet
+Kismet je alat za analizu WIFI mreže. To je 802.11 layer-2 bežični mrežni detektor, njuškalo i sistem za detekciju upada. Radit će sa bilo kojom bežičnom karticom koja podržava neobrađeni način praćenja (rfmon) i može njuškati 802.11a/b/g/n saobraćaj. Identificira mreže prikupljanjem paketa i skrivenih mreža.
+
+Da biste je koristili, okrenite bežičnu karticu u način nadzora i da biste to učinili, upišite “airmon-ng start wlan-0” u terminal.
+
+Pokrenite Wlan
+Naučimo kako koristiti ovaj alat.
+
+Korak 1 – Da biste ga pokrenuli, otvorite terminal i upišite “kismet”.
+
+Pokreni
+Korak 2 − Kliknite na “OK”.
+
+Kismet
+Korak 3 − Kliknite na “Da” kada se zatraži pokretanje Kismet servera. U suprotnom će prestati funkcionirati.
+
+Pokrenite server
+Korak 4 – Opcije pokretanja, ostavite kao zadano. Kliknite na “Start”.
+
+Ostavi zadano
+Korak 5 − Sada će se prikazati tabela u kojoj se traži da definirate bežičnu karticu. U tom slučaju kliknite na Da.
+
+Definiraj tablicu
+Korak 6 – U ovom slučaju, bežični izvor je “wlan0”. Morat ćete ga napisati u odjeljku “Intf” → kliknite na “Dodaj”.
+
+Wirless Source
+Korak 7 – Počet će njuškati wifi mreže kao što je prikazano na sljedećem snimku ekrana.
+
+Mreže
+Korak 8 – Kliknite na bilo koju mrežu, ona proizvodi bežične detalje kao što je prikazano na sljedećem snimku ekrana.
+
+Bežična mreža
+GISKismet
+GISKismet je bežični alat za vizualizaciju za predstavljanje podataka prikupljenih korištenjem Kismeta na praktičan način. GISKismet pohranjuje informacije u bazu podataka tako da možemo tražiti podatke i generirati grafikone koristeći SQL. GISKismet trenutno koristi SQLite za bazu podataka i GoogleEarth / KML datoteke za crtanje.
+
+Naučimo kako koristiti ovaj alat.
+
+Korak 1 − Da biste otvorili GISKismet, idite na: Aplikacije → Kliknite na “Wireless Attacks” → giskismet.
+
+Giskismet
+Kao što se sjećate u prethodnom dijelu, koristili smo Kismet alat za istraživanje podataka o bežičnim mrežama i sve te podatke Kismet pakira u netXML datoteke.
+
+Korak 2 – Da biste uvezli ovu datoteku u Giskismet, upišite “root@kali:~# giskismet -x Kismetfilename.netxml” i on će početi uvoziti datoteke.
+
+Uvoz datoteka
+Kada ih uvezemo, možemo ih uvesti u Google Earth Hotspots koje smo ranije pronašli.
+
+Korak 3 − Pod pretpostavkom da smo već instalirali Google Earth, kliknemo Fajl → Otvori datoteku koju je Giskismet kreirao → Kliknite na „Otvori“.
+
+google zemlja
+Bit će prikazana sljedeća mapa.
+
+Mapa
+Ghost Phisher
+Ghost Phisher je popularan alat koji pomaže u stvaranju lažnih bežičnih pristupnih tačaka, a zatim iu stvaranju Man-in-The-Middle-Attack-a.
+
+Korak 1 − Da biste ga otvorili, kliknite na Aplikacije → Bežični napadi → „fišing duhova“.
+
+Ghost Phisher
+Korak 2 – Nakon otvaranja, podesit ćemo lažni AP koristeći sljedeće detalje.
+
+Ulaz bežičnog interfejsa: wlan0
+SSID: naziv bežične pristupne tačke
+IP adresa: IP koji će imati AP
+WAP: Lozinka koja će imati ovaj SSID za povezivanje
+Otvaranje Ghost Phishera
+Korak 3 − Kliknite na dugme Start.
+
+Wifite
+To je još jedan alat za bežično klakanje, koji napada više WEP, WPA i WPS šifriranih mreža zaredom.
+
+Prvo, bežična kartica mora biti u modu za nadzor.
+
+Korak 1 − Da biste ga otvorili, idite na Aplikacije → Wireless Attack → Wifite.
+
+Wifite
+Korak 2 − Upišite "wifite –showb" da biste skenirali mreže.
+
+Wifite Showb
+Scan Network
+Korak 3 − Za početak napada na bežične mreže kliknite Ctrl + C.
+
+Napada
+Korak 4 − Upišite “1” da razbijete prvu bežičnu vezu.
+
+Crack First
+Korak 5 − Nakon što je napad završen, ključ će biti pronađen.
+
 In this chapter, we will learn how to use Wi-Fi cracking tools that Kali Linux has incorporated. However, it is important that the wireless card that you has a support monitoring mode.
 
 Fern Wifi Cracker
